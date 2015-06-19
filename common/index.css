@@ -1,3 +1,21 @@
+body {
+
+  background-image: none;
+}
+.edt #e_controls.bar {
+  height: 60px;
+}
+/*头部*/
+.wjs_hd {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+}
+.wjs_hdmg {
+  height: 60px;
+}
+
 /*导航一*/
 
 .navbar {
@@ -69,6 +87,7 @@
   'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
   font-weight: bold;
   color: rgb(85, 85, 85);
+  margin-top: 0;
 }
 
 h4 {
