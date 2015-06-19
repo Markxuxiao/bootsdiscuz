@@ -149,7 +149,7 @@ var disablepostctrl = parseInt('{$_G['group']['disablepostctrl']}');
 							<!--{if !$_G['uid']}-->
 								<!--{if !$_G['connectguest']}-->
 
-									 <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)" class="btn btn-info center-block" style="margin:20px 0;">登录后写评论</a>
+									 <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)" class="btn btn-info center-block" style="margin:20px 0;">登录后写评论<span class="glyphicon glyphicon-pencil"></span></a>
 								<!--{else}-->
 									{lang connect_fill_profile_to_post}
 								<!--{/if}-->

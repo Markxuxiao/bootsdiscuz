@@ -28,6 +28,7 @@
 	<!--{/if}-->
 	<link rel="stylesheet" href="template/boots/common/bootstrap.css">
 	<link rel="stylesheet" href="template/boots/common/index.css">
+
 </head>
 
 <body id="nv_{$_G[basescript]}" class="pg_{CURMODULE}{if $_G['basescript'] === 'portal' && CURMODULE === 'list' && !empty($cat)} {$cat['bodycss']}{/if}" onkeydown="if(event.keyCode==27) return false;">
@@ -62,7 +63,7 @@
 		<!--{/if}-->
 
 		<!--{ad/headerbanner/wp a_h}-->
-		<div class="wjs_hd">
+		<div class="wjs_hd " id="wjs_header" >
 			<div class="wp">
 				<div class="cl">
 					<!--{eval $mnid = getcurrentnav();}-->
@@ -103,9 +104,9 @@
 		
 			<div class="col-sm-1" style="margin-right:15px;">
 			<div class="navbar">
-				<ul class="nav nav-pills nav-stacked">
+				<ul class="nav nav-default nav-stacked">
 					<!--{loop $_G['setting']['navs'] $nav}-->
-						<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}--><li {if $mnid == $nav[navid]}class="a" {/if}$nav[nav]></li><!--{/if}-->
+						<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}--><li {if $mnid == $nav[navid]}class="active" {/if}$nav[nav]></li><!--{/if}-->
 					<!--{/loop}-->
 				</ul>
 				<!--{hook/global_nav_extra}-->	

@@ -1,10 +1,10 @@
 body {
-
   background-image: none;
+  font: 12px/1.5 'Microsoft Yahei','Simsun';
 }
-.edt #e_controls.bar {
-  height: 60px;
-}
+.edt #e_controls.bar {height: 60px;}
+
+
 /*头部*/
 .wjs_hd {
   position: fixed;
@@ -28,8 +28,21 @@ body {
   width: 10%;
   min-width: 80px;
   background: #2a2a2a;
+}
+.navbar li a {
   color: #999;
 }
+.navbar li {
+  margin: 0;
+}
+.navbar li a:hover, .navbar li a:active ,.navbar li.active a{
+  background-color: #e78170;
+  color: white;
+  text-shadow: 0 1px 0 #de533a;
+}
+/*导航一 end*/
+
+
 @media (min-width: 768px) {
     #wjs_container {
     width: 620px;
@@ -98,10 +111,10 @@ h4 {
 small{
 	color: #999;
 }
-
 .img-circle img {
   border-radius: 50%
 }
+.wjs_huise {color: #999;margin-top: 5px;}
 /*尾部*/
 footer {
     padding: 20px 0 10px 0;
