@@ -13,6 +13,21 @@ body {
 .bm_h {
   height: 52px;
 }
+
+.pg a, .pg strong, .pgb a, .pg label{
+  border-radius: 14px;
+}
+.pg label .px {
+  height: 17px;
+}
+.px {
+  border-bottom: 1px solid #ccc;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  text-align: center;
+  background: none;
+}
 /*头部*/
 .wjs_hd {
   position: fixed;
@@ -113,6 +128,7 @@ body {
 }
 .media.mb{
   padding-bottom: 15px;
+  padding-top: 15px;
   border-bottom: 1px dashed #d9d9d9;
 }
 
