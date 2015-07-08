@@ -4,7 +4,15 @@ body {
 }
 .edt #e_controls.bar {height: 60px;}
 
-
+.ttp a{
+  height: 29px;
+}
+.ttp li{
+  margin-left: 7px;
+}
+.bm_h {
+  height: 52px;
+}
 /*头部*/
 .wjs_hd {
   position: fixed;
@@ -120,6 +128,22 @@ small{
   border-radius: 50%
 }
 .wjs_huise {color: #999;margin-top: 5px;}
+
+.sort-nav li a {
+padding: 5px 10px;
+border: 1px solid #d9d9d9;
+border-radius: 14px;
+box-sizing: border-box;
+font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+font-size: 12px;
+font-weight: normal;
+line-height: 1.5;
+height: 29px;
+}
+
+
+
+
 /*尾部*/
 footer {
     padding: 20px 0 10px 0;
