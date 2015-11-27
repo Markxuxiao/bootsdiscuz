@@ -79,7 +79,7 @@
 
 									        <small>阅读 <!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}-->
 									        </small>
-									        <small> · 评论 $thread[allreplies]</small><small> · 喜欢 1000</small>
+									        <small> · 评论 $thread[allreplies]</small><small> · 喜欢 <!--{if $thread[recommends]}-->$thread[recommends]<!--{else}-->0<!--{/if}--></small>
 									      </div>
 									      <div class="media-right">
 									        <a href="#">
@@ -96,8 +96,9 @@
 							<div id="hiddenthread"{if $thread['hidden']} class="last"{/if}><a href="javascript:;" onclick="display_blocked_thread()">{lang other_reply_hide}</a></div>
 						<!--{/if}-->
 					<!--{else}-->
-						</table><!-- end of table "forum_G[fid]" branch 2/3 -->
-						<ul id="waterfall" class="ml waterfall cl">
+						</table>
+						<!-- end of table "forum_G[fid]" branch 2/3 -->
+						<ul id="waterfall" class="row">
 							<!--{loop $_G['forum_threadlist'] $key $thread}-->
 							<!--{if $_G['hiddenexists'] && $thread['hidden']}-->
 								<!--{eval continue;}-->
@@ -108,37 +109,25 @@
 								<!--{/if}-->
 							<!--{/if}-->
 							<!--{eval $waterfallwidth = $_G[setting][forumpicstyle][thumbwidth] + 24; }-->
-							<li style="width:{$waterfallwidth}px">
-								<!--{if !$_GET['archiveid'] && $_G['forum']['ismoderator']}-->
-									<div style="position:absolute;margin:1px;padding:2px;background:#FFF">
-									<!--{if $thread['fid'] == $_G[fid]}-->
-										<!--{if $thread['displayorder'] <= 3 || $_G['adminid'] == 1}-->
-											<input onclick="tmodclick(this)" type="checkbox" name="moderate[]" value="$thread[tid]" />
-										<!--{else}-->
-											<input type="checkbox" disabled="disabled" />
-										<!--{/if}-->
-									<!--{else}-->
-										<input type="checkbox" disabled="disabled" />
-									<!--{/if}-->
-									</div>
-								<!--{/if}-->
-								<div class="c cl">
+							<li class="col-sm-6 col-md-4">
+								<div class="c cl thumbnail">
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra" {if $thread['isgroup'] == 1 || $thread['forumstick'] || CURMODULE == 'guide'} target="_blank"{else} onclick="atarget(this)"{/if} title="$thread[subject]" class="z">
 										<!--{if $thread['cover']}-->
-											<img src="$thread[coverpath]" alt="$thread[subject]" width="{$_G[setting][forumpicstyle][thumbwidth]}" />
+											<img src="$thread[coverpath]" alt="$thread[subject]" />
 										<!--{else}-->
 											<span class="nopic" style="width:{$_G[setting][forumpicstyle][thumbwidth]}px; height:{$_G[setting][forumpicstyle][thumbwidth]}px;"></span>
 										<!--{/if}-->
 									</a>
 								</div>
-								<h3 class="xw0">
+								<h5 class="xw110">
 									<!--{hook/forumdisplay_thread $key}-->
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"$thread[highlight]{if $thread['isgroup'] == 1 || $thread['forumstick']} target="_blank"{else} onclick="atarget(this)"{/if} title="$thread[subject]">$thread[subject]</a>
-								</h3>
+								</h5>
 								<div class="auth cl">
 									<cite class="xg1 y">
-										{lang like}: <!--{if $thread[recommends]}-->$thread[recommends]<!--{else}-->0<!--{/if}-->
-										 &nbsp; {lang reply}: <a href="forum.php?mod=viewthread&tid=$thread[tid]&extra=$extra" title="$thread[replies] {lang reply}">$thread[replies]</a>
+										<small>阅读 <!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}-->
+									    </small>
+									    <small> · 评论 $thread[allreplies]</small>
 									</cite>
 									<!--{hook/forumdisplay_author $key}-->
 									<!--{if $thread['authorid'] && $thread['author']}-->
@@ -152,102 +141,7 @@
 						</ul>
 						<div id="tmppic" style="display: none;"></div>
 						<script type="text/javascript" src="{$_G[setting][jspath]}redef.js?{VERHASH}"></script>
-						<script type="text/javascript" reload="1">
-						var wf = {};
-
-						_attachEvent(window, "load", function () {
-							if($("waterfall")) {
-								wf = waterfall();
-							}
-
-							<!--{if $page < $_G['page_next'] && !$subforumonly}-->
-								var page = $page + 1,
-									maxpage = Math.min($page + 10,$maxpage + 1),
-									stopload = 0,
-									scrolltimer = null,
-									tmpelems = [],
-									tmpimgs = [],
-									markloaded = [],
-									imgsloaded = 0,
-									loadready = 0,
-									showready = 1,
-									nxtpgurl = 'forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&page=',
-									wfloading = "<img src=\"{IMGDIR}/loading.gif\" alt=\"\" width=\"16\" height=\"16\" class=\"vm\" /> {lang onloading}...",
-									pgbtn = $("pgbtn").getElementsByTagName("a")[0];
-
-								function loadmore() {
-									var url = nxtpgurl + page + '&t=' + parseInt((+new Date()/1000)/(Math.random()*1000));
-									var x = new Ajax("HTML");
-									x.get(url, function (s) {
-										s = s.replace(/\n|\r/g, "");
-										if(s.indexOf("id=\"pgbtn\"") == -1) {
-											$("pgbtn").style.display = "none";
-											stopload++;
-											window.onscroll = null;
-										}
-
-										s = s.substring(s.indexOf("<ul id=\"waterfall\""), s.indexOf("<div id=\"tmppic\""));
-										s = s.replace("id=\"waterfall\"", "");
-										$("tmppic").innerHTML = s;
-										loadready = 1;
-									});
-								}
-
-								window.onscroll = function () {
-									if(scrolltimer == null) {
-										scrolltimer = setTimeout(function () {
-											try {
-												if(page < maxpage && stopload < 2 && showready && ((document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.clientHeight + 500) >= document.documentElement.scrollHeight) {
-													pgbtn.innerHTML = wfloading;
-													loadready = 0;
-													showready = 0;
-													loadmore();
-													tmpelems = $("tmppic").getElementsByTagName("li");
-													var waitingtimer = setInterval(function () {
-														stopload >= 2 && clearInterval(waitingtimer);
-														if(loadready && stopload < 2) {
-															if(!tmpelems.length) {
-																page++;
-																pgbtn.href = nxtpgurl + Math.min(page, $maxpage);
-																pgbtn.innerHTML = "{lang next_page_extra}";
-																showready = 1;
-																clearInterval(waitingtimer);
-															}
-															for(var i = 0, j = tmpelems.length; i < j; i++) {
-																if(tmpelems[i]) {
-																	tmpimgs = tmpelems[i].getElementsByTagName("img");
-																	imgsloaded = 0;
-																	for(var m = 0, n = tmpimgs.length; m < n; m++) {
-																		tmpimgs[m].onerror = function () {
-																			this.style.display = "none";
-																		};
-																		markloaded[m] = tmpimgs[m].complete ? 1 : 0;
-																		imgsloaded += markloaded[m];
-																	}
-																	if(imgsloaded == tmpimgs.length) {
-																		$("waterfall").appendChild(tmpelems[i]);
-																		wf = waterfall({
-																			"index": wf.index,
-																			"totalwidth": wf.totalwidth,
-																			"totalheight": wf.totalheight,
-																			"columnsheight": wf.columnsheight
-																		});
-																	}
-																}
-															}
-														}
-													}, 40);
-												}
-											} catch(e) {}
-											scrolltimer = null;
-										}, 320);
-									}
-								};
-							<!--{/if}-->
-
-						});
-
-						</script>
+						
 					<!--{/if}-->
 				<!--{else}-->
 						<tbody class="bw0_all"><tr><th colspan="{if !$_GET['archiveid'] && $_G['forum']['ismoderator']}6{else}5{/if}"><p class="emp">{lang forum_nothreads}</p></th></tr></tbody>

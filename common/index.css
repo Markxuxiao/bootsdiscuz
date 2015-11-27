@@ -2,8 +2,13 @@ body {
   background-image: none;
   font: 12px/1.5 'Microsoft Yahei','Simsun';
 }
+a:hover{
+  text-decoration:none;
+}
 .edt #e_controls.bar {height: 60px;}
-
+.tedt{
+  border:1px solid #ccc;
+}
 .ttp a{
   height: 29px;
 }
@@ -13,12 +18,17 @@ body {
 .bm_h {
   height: 52px;
 }
-
+.cttp .unfold, .cttp .fold{
+  width: 34px;
+}
 .pg a, .pg strong, .pgb a, .pg label{
   border-radius: 14px;
 }
 .pg label .px {
   height: 17px;
+}
+.cttp{
+  height: 44px;
 }
 .px {
   border-bottom: 1px solid #ccc;
@@ -28,6 +38,8 @@ body {
   text-align: center;
   background: none;
 }
+.xw110{height: 32px;overflow: hidden;}
+
 /*头部*/
 .wjs_hd {
   position: fixed;
@@ -39,6 +51,9 @@ body {
   height: 60px;
 }
 
+#waterfall li.col-sm-6.col-md-4{
+  margin-bottom: 20px;
+}
 /*导航一*/
 
 .navbar {
@@ -51,6 +66,7 @@ body {
   width: 10%;
   min-width: 80px;
   background: #2a2a2a;
+  border-radius: 0;
 }
 .navbar li a {
   color: #999;
@@ -59,7 +75,7 @@ body {
   margin: 0;
 }
 .navbar li a:hover, .navbar li a:active ,.navbar li.active a{
-  background-color: #e78170;
+  background-color: #3F3F3E;
   color: white;
   text-shadow: 0 1px 0 #de533a;
 }
@@ -68,11 +84,11 @@ body {
 
 @media (min-width: 768px) {
     #wjs_container {
-    width: 620px;
+    width: 760px;
     margin: 0 auto;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 	.navbar {
 		display: none;
 	}

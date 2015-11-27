@@ -131,7 +131,7 @@
 
 
 				<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0}-->
-					<ul id="thread_types" class="ttp bm cl sort-nav">
+					<ul id="thread_types" class="ttp bm cl sort-nav" >
 						<!--{hook/forumdisplay_threadtype_inner}-->
 						<li id="ttp_all" {if !$_GET['typeid'] && !$_GET['sortid']}class="xw1 a"{/if}><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_G['forum']['threadsorts']['defaultshow']}&filter=sortall&sortall=1{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang forum_viewall}</a></li>
 						<!--{if $_G['forum']['threadtypes']}-->
